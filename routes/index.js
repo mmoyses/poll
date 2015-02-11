@@ -1,35 +1,91 @@
 var express = require('express'),
     router = express.Router(),
-    option1 = 0,
-    option2 = 2,
-    option3 = 1;
+    before1 = 0,
+    before2 = 0,
+    before3 = 0,
+    after1 = 0,
+    after2 = 0,
+    after3 = 0;
 
-/* GET home page. */
+
+function getValues() {
+  return { before1: before1, before2: before2, before3: before3, after1: after1, after2: after2, after3: after3 };
+}
+
 router.get('/', function(req, res, next) {
-  res.render('index', { option1: option1, option2: option2, option3: option3 });
+  res.render('index', getValues());
 });
 
 router.get('/options', function(req, res, next) {
-  res.send({ option1: option1, option2: option2, option3: option3 });
+  res.send(getValues());
 });
 
 router.post('/options', function(req, res, next) {
-  if (req.body.option1) {
-    option1 += req.body.option1;
-    if (option1 < 0)
-      option1 = 0;
+  if (req.body.before1) {
+    before1 += req.body.before1;
+    if (before1 < 0)
+      before1 = 0;
   }
-  if (req.body.option2) {
-    option2 += req.body.option2;
-    if (option2 < 0)
-      option2 = 0;
+  if (req.body.before2) {
+    before2 += req.body.before2;
+    if (before2 < 0)
+      before2 = 0;
   }
-  if (req.body.option3) {
-    option3 += req.body.option3;
-    if (option3 < 0)
-      option3 = 0;
+  if (req.body.before3) {
+    before3 += req.body.before3;
+    if (before3 < 0)
+      before3 = 0;
   }
-  res.send({ option1: option1, option2: option2, option3: option3 });
+  if (req.body.after1) {
+    after1 += req.body.after1;
+    if (after1 < 0)
+      after1 = 0;
+  }
+  if (req.body.after2) {
+    after2 += req.body.after2;
+    if (after2 < 0)
+      after2 = 0;
+  }
+  if (req.body.after3) {
+    after3 += req.body.after3;
+    if (after3 < 0)
+      after3 = 0;
+  }
+  res.send(getValues());
+});
+
+router.put('/options', function(req, res, next) {
+  if (req.body.before1) {
+    before1 = req.body.before1;
+    if (before1 < 0)
+      before1 = 0;
+  }
+  if (req.body.before2) {
+    before2 = req.body.before2;
+    if (before2 < 0)
+      before2 = 0;
+  }
+  if (req.body.before3) {
+    before3 = req.body.before3;
+    if (before3 < 0)
+      before3 = 0;
+  }
+  if (req.body.after1) {
+    after1 = req.body.after1;
+    if (after1 < 0)
+      after1 = 0;
+  }
+  if (req.body.after2) {
+    after2 = req.body.after2;
+    if (after2 < 0)
+      after2 = 0;
+  }
+  if (req.body.after3) {
+    after3 = req.body.after3;
+    if (after3 < 0)
+      after3 = 0;
+  }
+  res.send(getValues());
 });
 
 module.exports = router;
