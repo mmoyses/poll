@@ -1,0 +1,15 @@
+extends layout
+
+block content
+  div(data-ng-controller="PollController")
+    p {{option1}}
+      button(ng-click="subtractOption1()") -
+      button(ng-click="addOption1()") +
+    p {{option2}}
+      button(ng-click="subtractOption2()") -
+      button(ng-click="addOption2()") +
+    p {{option3}}
+      button(ng-click="subtractOption3()") -
+      button(ng-click="addOption3()") +
+    div
+      highchart(id='chart1', config='chartConfig')
