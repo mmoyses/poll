@@ -2,13 +2,13 @@ extends layout
 
 block content
   div(data-ng-controller="PollController")
-    p {{option1}}
+    p Option 1: {{option1}}
       button(ng-click="subtractOption1()") -
       button(ng-click="addOption1()") +
-    p {{option2}}
+    p Option 2: {{option2}}
       button(ng-click="subtractOption2()") -
       button(ng-click="addOption2()") +
-    p {{option3}}
+    p Option 3: {{option3}}
       button(ng-click="subtractOption3()") -
       button(ng-click="addOption3()") +
     div
