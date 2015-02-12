@@ -5,8 +5,8 @@ var express = require('express'),
     before3 = 0,
     after1 = 0,
     after2 = 0,
-    after3 = 0;
-
+    after3 = 0,
+    sockets = [];
 
 function getValues() {
   return { before1: before1, before2: before2, before3: before3, after1: after1, after2: after2, after3: after3 };
@@ -21,6 +21,7 @@ router.get('/options', function(req, res, next) {
 });
 
 router.post('/options', function(req, res, next) {
+  var i;
   if (req.body.before1) {
     before1 += req.body.before1;
     if (before1 < 0)
@@ -52,6 +53,9 @@ router.post('/options', function(req, res, next) {
       after3 = 0;
   }
   res.send(getValues());
+  for (i = 0; i < sockets.length; i++) {
+    sockets[i].emit('update', getValues());
+  }
 });
 
 router.put('/options', function(req, res, next) {
@@ -86,6 +90,21 @@ router.put('/options', function(req, res, next) {
       after3 = 0;
   }
   res.send(getValues());
+  for (i = 0; i < sockets.length; i++) {
+    sockets[i].emit('update', getValues());
+  }
 });
+
+router.initialize = function (io) {
+  var i;
+  io.on('connection', function (socket) {
+    sockets.push(socket);
+
+    socket.on('disconnect', function () {
+      i = sockets.indexOf(socket);
+      sockets.splice(i, 1);
+    });
+  });
+};
 
 module.exports = router;

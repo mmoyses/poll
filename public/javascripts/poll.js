@@ -5,7 +5,22 @@ angular.module('poll').
 
     var text1 = 'Bare bones',
         text2 = 'Middle of the road',
-        text3 = 'Volume discount';
+        text3 = 'Volume discount',
+        socket = io.connect();
+
+    function newValues(data) {
+      $scope.before1 = data.before1;
+      $scope.before2 = data.before2;
+      $scope.before3 = data.before3;
+      $scope.after1 = data.after1;
+      $scope.after2 = data.after2;
+      $scope.after3 = data.after3;
+      $scope.$digest();
+    }
+
+    socket.on('update', function(data) {
+      newValues(data);
+    });
 
     $scope.chartConfig = {
       options: {
@@ -45,15 +60,6 @@ angular.module('poll').
     $scope.after1 = 0;
     $scope.after2 = 0;
     $scope.after3 = 0;
-
-    function newValues(data) {
-      $scope.before1 = data.before1;
-      $scope.before2 = data.before2;
-      $scope.before3 = data.before3;
-      $scope.after1 = data.after1;
-      $scope.after2 = data.after2;
-      $scope.after3 = data.after3;
-    }
 
     function sendValue(value) {
       $http.put('/data/options', value)
