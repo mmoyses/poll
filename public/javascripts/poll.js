@@ -15,11 +15,11 @@ angular.module('poll').
       $scope.after1 = data.after1;
       $scope.after2 = data.after2;
       $scope.after3 = data.after3;
-      $scope.$digest();
     }
 
     socket.on('update', function(data) {
       newValues(data);
+      $scope.$digest();
     });
 
     $scope.chartConfig = {
