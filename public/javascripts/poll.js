@@ -24,34 +24,57 @@ angular.module('poll').
 
     $scope.chartConfig = {
       options: {
-            chart: {
-                type: 'column'
-            }
+        chart: {
+          type: 'column'
         },
-        credits: {
-            enabled: false
+        legend: {
+          itemStyle: {
+            color: 'black',
+            fontWeight: 'bold',
+            fontSize: '18px'
+          }
         },
-        series: [{
-            name: 'Before',
-            data: []
-        }, {
-            name: 'After',
-            data: []
-        }],
+      },
+      credits: {
+        enabled: false
+      },
+      series: [{
+        showInLegend: false,
+        name: 'Before',
+        data: []
+      }],
+      title: {
+        text: 'What Should Day Choose?'
+      },
+      xAxis: {
+        labels: {
+          style: {
+            color: 'black',
+            fontSize: '16px',
+            fontWeight: 'bold'
+          }
+        },
+        categories: ['Bare Bones', 'Middle of the Road', 'Volume Discount']
+      },
+      yAxis: {
+        gridLineDashStyle: 'dash',
+        allowDecimals: false,
+        labels: {
+          style: {
+            color: 'black',
+            fontSize: '16px',
+            fontWeight: 'bold'
+          }
+        },
+        floor: 0,
+        min: 0,
         title: {
-            text: "Day's options"
-        },
-        xAxis: {
-            categories: ['Bare Bones', 'Middle of the Road', 'Volume Discount']
-        },
-
-        yAxis: {
-            allowDecimals: false,
-            min: 0,
-            title: {
-                text: 'count'
-            }
+          style: {
+            fontSize: '14px'
+          },
+          text: 'count'
         }
+      }
     };
 
     $scope.before1 = 0;
@@ -105,7 +128,18 @@ angular.module('poll').
 
     function updateValue() {
       $scope.chartConfig.series[0].data = [[text1, $scope.before1], [text2, $scope.before2], [text3, $scope.before3]];
-      $scope.chartConfig.series[1].data = [[text1, $scope.after1], [text2, $scope.after2], [text3, $scope.after3]];
+      if ($scope.after1 || $scope.after2 || $scope.after3) {
+        if ($scope.chartConfig.series.length == 1) {
+          $scope.chartConfig.series.push({ name: 'After', data: [] });
+          $scope.chartConfig.series[0].showInLegend = true;
+        }
+        $scope.chartConfig.series[1].data = [[text1, $scope.after1], [text2, $scope.after2], [text3, $scope.after3]];
+      } else {
+        if ($scope.chartConfig.series.length == 2) {
+          $scope.chartConfig.series.pop();
+          $scope.chartConfig.series[0].showInLegend = false;
+        }
+      }
     }
 
     $scope.$watch('before1', function() {

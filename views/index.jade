@@ -2,14 +2,16 @@ extends layout
 
 block content
   div(data-ng-controller="PollController")
+    div
+      highchart(id='chart1', config='chartConfig')
     div.center-block
-      h2 Before
+      h3 Before
       form.form-horizontal
         div.form-group
           label.col-sm-2.control-label(for='before1') Option 1
           div.input-group.col-sm-2
             div.input-group-addon
-              button(ng-click='subtractBefore1()')
+              button(ng-click='subtractBefore1()', ng-disabled='!before1')
                 span.glyphicon.glyphicon-minus(aria-hidden='true')
             input.form-control(name='before1', ng-model='before1', ng-change='beforeChanged(1)')
             div.input-group-addon
@@ -19,7 +21,7 @@ block content
           label.col-sm-2.control-label(for='before2') Option 2
           div.input-group.col-sm-2
             div.input-group-addon
-              button(ng-click='subtractBefore2()')
+              button(ng-click='subtractBefore2()', ng-disabled='!before2')
                 span.glyphicon.glyphicon-minus(aria-hidden='true')
             input.form-control(name='before2', ng-model='before2', ng-change='beforeChanged(2)')
             div.input-group-addon
@@ -29,22 +31,20 @@ block content
           label.col-sm-2.control-label(for='before3') Option 3
           div.input-group.col-sm-2
             div.input-group-addon
-              button(ng-click='subtractBefore3()')
+              button(ng-click='subtractBefore3()', ng-disabled='!before3')
                 span.glyphicon.glyphicon-minus(aria-hidden='true')
             input.form-control(name='before3', ng-model='before3', ng-change='beforeChanged(3)')
             div.input-group-addon
               button(ng-click='addBefore3()')
                 span.glyphicon.glyphicon-plus(aria-hidden='true')
-    div
-      highchart(id='chart1', config='chartConfig')
     div.center-block
-      h2 After
+      h3 After
       form.form-horizontal
         div.form-group
           label.col-sm-2.control-label(for='after1') Option 1
           div.input-group.col-sm-2
             div.input-group-addon
-              button(ng-click='subtractAfter1()')
+              button(ng-click='subtractAfter1()', ng-disabled='!after1')
                 span.glyphicon.glyphicon-minus(aria-hidden='true')
             input.form-control(name='after1', ng-model='after1', ng-change='afterChanged(1)')
             div.input-group-addon
@@ -54,7 +54,7 @@ block content
           label.col-sm-2.control-label(for='after2') Option 2
           div.input-group.col-sm-2
             div.input-group-addon
-              button(ng-click='subtractAfter2()')
+              button(ng-click='subtractAfter2()', ng-disabled='!after2')
                 span.glyphicon.glyphicon-minus(aria-hidden='true')
             input.form-control(name='after2', ng-model='after2', ng-change='afterChanged(2)')
             div.input-group-addon
@@ -64,7 +64,7 @@ block content
           label.col-sm-2.control-label(for='after3') Option 3
           div.input-group.col-sm-2
             div.input-group-addon
-              button(ng-click='subtractAfter3()')
+              button(ng-click='subtractAfter3()', ng-disabled='!after3')
                 span.glyphicon.glyphicon-minus(aria-hidden='true')
             input.form-control(name='after3', ng-model='after3', ng-change='afterChanged(3)')
             div.input-group-addon
